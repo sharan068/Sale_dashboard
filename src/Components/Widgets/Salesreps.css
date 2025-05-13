@@ -1,0 +1,128 @@
+/* Mobile-first styles */
+.reps-container {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.reps-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reps-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.sort-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sort-controls button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.sort-controls button.active {
+  background: #f0f0f0;
+  border-color: #888;
+}
+
+.reps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.rep-card {
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #ddd;
+}
+
+.rep-card.exceeded {
+  border-left-color: #4caf50;
+  background-color: #f8fff8;
+}
+
+.rep-card.met {
+  border-left-color: #ffc107;
+  background-color: #fffcf5;
+}
+
+.rep-card.below {
+  border-left-color: #f44336;
+  background-color: #fff5f5;
+}
+
+.rep-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: #222;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.rep-card.met .progress-fill {
+  background: #ffc107;
+}
+
+.rep-card.below .progress-fill {
+  background: #f44336;
+}
+
+.rep-metrics {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.rep-metrics p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.rep-metrics .label {
+  color: #666;
+}
+
+.rep-metrics .value {
+  font-weight: 500;
+}
+
+/* Tablet/desktop adjustments */
+@media (min-width: 768px) {
+  .reps-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .reps-grid {
+    gap: 1.25rem;
+  }
+}
