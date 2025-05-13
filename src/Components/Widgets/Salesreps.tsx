@@ -41,7 +41,7 @@ export default function SalesReps() {
       console.error("Failed to load reps", err);
       setError("Failed to load sales reps");
     } finally {
-      setLoading(false);  // ✅ THIS MUST BE CALLED
+      setLoading(false);  
     }
   };
 

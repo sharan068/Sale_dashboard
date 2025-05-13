@@ -1,4 +1,4 @@
-/* Mobile-first styles */
+
 .region-container {
   background: white;
   padding: 1rem;
@@ -13,7 +13,7 @@
   color: #333;
 }
 
-/* Skeleton loader */
+
 .region-skeleton {
   height: 300px;
   background: #f0f0f0;
@@ -24,7 +24,7 @@
   animation: pulse 1.5s infinite;
 }
 
-/* Error state */
+
 .region-error {
   height: 300px;
   background: #ffe6e6;
@@ -36,7 +36,7 @@
   color: #d32f2f;
 }
 
-/* Tablet/desktop adjustments */
+
 @media (min-width: 768px) {
   .region-container {
     padding: 1.5rem;

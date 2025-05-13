@@ -1,4 +1,4 @@
-/* Mobile-first styles */
+
 .reps-container {
   background: white;
   padding: 1rem;
@@ -114,7 +114,7 @@
   font-weight: 500;
 }
 
-/* Tablet/desktop adjustments */
+
 @media (min-width: 768px) {
   .reps-header {
     flex-direction: row;

@@ -26,13 +26,13 @@ export default function TopProducts() {
   const fetchProducts = async () => {
   try {
     const response = await axios.get('https://api.npoint.io/b0b6bb5c47846cf804bb');
-    console.log('Full API Response:', response.data);  // Log the entire response
+    console.log('Full API Response:', response.data);  
 
-    // Adjust based on the actual API response structure
+    
     if (Array.isArray(response.data)) {
-      setProducts(response.data);  // If the root response is an array
+      setProducts(response.data);  
     } else if (Array.isArray(response.data.products)) {
-      setProducts(response.data.products);  // If the products array is inside a 'products' property
+      setProducts(response.data.products);  
     } else {
       console.error('API data is not in the expected format');
     }
@@ -46,7 +46,7 @@ export default function TopProducts() {
     fetchProducts();
   }, []);
 
-  // Memoize sorted products
+ 
   const sortedProducts = useMemo(() => {
     return [...products].sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -59,7 +59,7 @@ export default function TopProducts() {
     });
   }, [products, sortConfig]);
 
-  // Virtualized row renderer
+ 
   const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
     <div style={style} className={`product-row ${index % 2 ? 'odd' : 'even'}`}>
       <div className="product-cell">{sortedProducts[index].name}</div>
