@@ -1,4 +1,4 @@
-/* Mobile-first styles */
+
 .products-container {
   background: white;
   padding: 1rem;
@@ -55,7 +55,7 @@
   background-color: #fafafa;
 }
 
-/* Tablet/desktop adjustments */
+
 @media (min-width: 768px) {
   .products-container {
     padding: 1.5rem;

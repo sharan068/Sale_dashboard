@@ -1,5 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
-import axios from 'axios';
+import { useState, useMemo } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import './TopProduct.css';
 
@@ -15,40 +14,23 @@ interface SortConfig {
   direction: 'asc' | 'desc';
 }
 
+// 2. Mock data with type safety
+const mockProducts: Product[] = Array.from({ length: 1000 }, (_, i) => ({
+  id: i + 1,
+  name: `Product ${String.fromCharCode(65 + (i % 26))}${i > 25 ? Math.floor(i / 26) : ''}`,
+  sales: Math.floor(Math.random() * 10000) + 1000,
+}));
+
 export default function TopProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [sortConfig, setSortConfig] = useState<SortConfig>({
-    key: 'sales',
-    direction: 'desc',
+  // 3. State with TypeScript
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ 
+    key: 'sales', 
+    direction: 'desc' 
   });
 
-  useEffect(() => {
-  const fetchProducts = async () => {
-  try {
-    const response = await axios.get('https://api.npoint.io/b0b6bb5c47846cf804bb');
-    console.log('Full API Response:', response.data);  
-
-    
-    if (Array.isArray(response.data)) {
-      setProducts(response.data);  
-    } else if (Array.isArray(response.data.products)) {
-      setProducts(response.data.products);  
-    } else {
-      console.error('API data is not in the expected format');
-    }
-  } catch (error) {
-    console.error('Error fetching products:', error);
-  }
-};
-
-
-
-    fetchProducts();
-  }, []);
-
- 
+  // 4. Memoized sorting
   const sortedProducts = useMemo(() => {
-    return [...products].sort((a, b) => {
+    return [...mockProducts].sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key]) {
         return sortConfig.direction === 'asc' ? -1 : 1;
       }
@@ -57,30 +39,32 @@ export default function TopProducts() {
       }
       return 0;
     });
-  }, [products, sortConfig]);
+  }, [sortConfig]);
 
- 
+  // 5. Virtualized row renderer
   const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
-    <div style={style} className={`product-row ${index % 2 ? 'odd' : 'even'}`}>
+    <div 
+      style={style} 
+      className={`product-row ${index % 2 ? 'odd' : 'even'}`}
+    >
       <div className="product-cell">{sortedProducts[index].name}</div>
-      <div className="product-cell">${sortedProducts[index].sales.toLocaleString()}</div>
+      <div className="product-cell">
+        ${sortedProducts[index].sales.toLocaleString()}
+      </div>
     </div>
   );
 
   const requestSort = (key: keyof Product) => {
-    setSortConfig((prev) => ({
+    setSortConfig(prev => ({
       key,
-      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
     }));
   };
 
+  // 6. Sort indicator component
   const SortIndicator = ({ columnKey }: { columnKey: keyof Product }) => (
     <span className="sort-indicator">
-      {sortConfig.key === columnKey
-        ? sortConfig.direction === 'asc'
-          ? '↑'
-          : '↓'
-        : ''}
+      {sortConfig.key === columnKey ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
     </span>
   );
 
@@ -88,23 +72,29 @@ export default function TopProducts() {
     <div className="products-container">
       <h3 className="products-title">Top Products</h3>
       <div className="table-header">
-        <div className="header-cell" onClick={() => requestSort('name')}>
+        <div 
+          className="header-cell" 
+          onClick={() => requestSort('name')}
+        >
           Product <SortIndicator columnKey="name" />
         </div>
-        <div className="header-cell" onClick={() => requestSort('sales')}>
+        <div 
+          className="header-cell" 
+          onClick={() => requestSort('sales')}
+        >
           Sales <SortIndicator columnKey="sales" />
         </div>
       </div>
-
-      {/* Conditional rendering until data is fetched */}
-      {products.length > 0 ? (
-        <List height={400} itemCount={sortedProducts.length} itemSize={50} width="100%">
-          {Row}
-        </List>
-      ) : (
-        <div>Loading...</div> // Or a fallback message if data is not available
-      )}
+      
+      {/* 7. Virtualized list for performance */}
+      <List
+        height={400}
+        itemCount={Math.min(1000, sortedProducts.length)}
+        itemSize={50}
+        width="100%"
+      >
+        {Row}
+      </List>
     </div>
   );
 }
-
