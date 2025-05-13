@@ -1,4 +1,4 @@
-/* Mobile-first styles */
+
 .monthly-sales-container {
   background: white;
   padding: 1rem;
@@ -13,14 +13,14 @@
   color: #333;
 }
 
-/* Tablet/desktop */
+
 @media (min-width: 768px) {
   .monthly-sales-container {
     padding: 1.5rem;
   }
 }
 
-/* Skeleton loader */
+
 .skeleton-loader {
   height: 300px;
   background: #f0f0f0;
